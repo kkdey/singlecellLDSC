@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="K. K. Dey, K. Jagadeesh and Alkes Price" />
+
+
+<title>Comparison of Healthy, Inflamed and HealthyvInflamed scores</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">singlecellLDSC</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/jdblischak/workflowr">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Comparison of Healthy, Inflamed and HealthyvInflamed scores</h1>
+<h4 class="author"><em>K. K. Dey, K. Jagadeesh and Alkes Price</em></h4>
+<h4 class="date"><em>2/1/2020</em></h4>
+
+</div>
+
+
+<p><strong>Last updated:</strong> 2020-02-04</p>
+<strong>workflowr checks:</strong> <small>(Click a bullet for more information)</small>
+<ul>
+<li>
+<p><details> <summary> <strong style="color:red;">✖</strong> <strong>R Markdown file:</strong> uncommitted changes </summary> The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+</details>
+</li>
+<li>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Environment:</strong> empty </summary></p>
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</details>
+</li>
+<li>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Seed:</strong> <code>set.seed(20200127)</code> </summary></p>
+<p>The command <code>set.seed(20200127)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</details>
+</li>
+<li>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Session information:</strong> recorded </summary></p>
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</details>
+</li>
+<li>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> d3172fb </summary></p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    data/Healthy_gene_score_Top10_Feb1/
+
+Untracked files:
+    Untracked:  analysis/IBD_HVI_modules.Rmd
+    Untracked:  analysis/IBD_LDSC.Rmd
+    Untracked:  analysis/IBD_scores_comparison.Rmd
+    Untracked:  analysis/README.Rmd
+    Untracked:  analysis/README.md
+    Untracked:  code/ALL_bedgraph_calc.R
+    Untracked:  code/IBD_healthy_modules.Rmd
+    Untracked:  code/baseline_strategies.R
+    Untracked:  code/build_module_annotations.R
+    Untracked:  code/build_module_annotations2.R
+    Untracked:  code/compute_sd_annot.R
+    Untracked:  code/curate_postprocessed_matrix.R
+    Untracked:  code/healthy_logfold_gene_scores.R
+    Untracked:  code/merge_annot_HVI_healthy_all.R
+    Untracked:  code/merge_annot_healthy_all.R
+    Untracked:  code/merge_annot_module_all_genes.R
+    Untracked:  code/postprocess_ldsc.R
+    Untracked:  code/workflow_process_modules.R
+    Untracked:  data/All_IBD_genes.txt
+    Untracked:  data/HealthyVInflamed_gene_score_Feb1/
+    Untracked:  data/Healthy_gene_score/
+    Untracked:  data/Healthy_gene_score_Feb1/
+    Untracked:  data/Healthy_gene_score_Top10/
+    Untracked:  data/Healthy_logfold.csv
+    Untracked:  data/Inflamed_gene_score_Feb1/
+    Untracked:  data/Other_Gene_Scores/
+    Untracked:  data/healthy_score.csv
+    Untracked:  data/healthyvinflamed_score.csv
+    Untracked:  data/inflameddata_score.csv
+    Untracked:  docs/figure/
+    Untracked:  output/HVI_gene_score_Feb1_plus_Healthy_plus_All.rda
+    Untracked:  output/Healthy_gene_score_Feb1_plus_All_IBD.rda
+    Untracked:  output/IBD_51_modules_S_LDSC.rda
+    Untracked:  output/IBD_S_LDSC.rda
+
+</code></pre>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes. </details>
+</li>
+</ul>
+<hr />
+<pre class="r"><code>library(corrplot)</code></pre>
+<pre><code>corrplot 0.84 loaded</code></pre>
+<pre class="r"><code>library(ggplot2)</code></pre>
+<pre><code>Warning: package &#39;ggplot2&#39; was built under R version 3.5.2</code></pre>
+<pre class="r"><code>ll = list.files(&quot;/Users/kushaldey/Documents/singlecellLDSC/data/Healthy_gene_score_Feb1/&quot;)
+ll</code></pre>
+<pre><code> [1] &quot;Best4..Enterocytes.txt&quot;       &quot;CD4..Activated.Fos.hi.txt&quot;   
+ [3] &quot;CD4..Activated.Fos.lo.txt&quot;    &quot;CD4..Memory.txt&quot;             
+ [5] &quot;CD4..PD1..txt&quot;                &quot;CD69..Mast.1.txt&quot;            
+ [7] &quot;CD69..Mast.txt&quot;               &quot;CD8..IELs.txt&quot;               
+ [9] &quot;CD8..IL17..txt&quot;               &quot;CD8..LP.txt&quot;                 
+[11] &quot;Cycling.B.txt&quot;                &quot;Cycling.Monocytes.txt&quot;       
+[13] &quot;Cycling.T.txt&quot;                &quot;Cycling.TA.txt&quot;              
+[15] &quot;DC1.txt&quot;                      &quot;DC2.txt&quot;                     
+[17] &quot;Endothelial.txt&quot;              &quot;Enterocyte.Progenitors.txt&quot;  
+[19] &quot;Enterocytes.txt&quot;              &quot;Enteroendocrine.txt&quot;         
+[21] &quot;Follicular.txt&quot;               &quot;GC.txt&quot;                      
+[23] &quot;Glia.txt&quot;                     &quot;Goblet.txt&quot;                  
+[25] &quot;ILCs.txt&quot;                     &quot;Immature.Enterocytes.1.txt&quot;  
+[27] &quot;Immature.Enterocytes.2.txt&quot;   &quot;Immature.Goblet.txt&quot;         
+[29] &quot;Inflammatory.Fibroblasts.txt&quot; &quot;Inflammatory.Monocytes.txt&quot;  
+[31] &quot;M.cells.txt&quot;                  &quot;Macrophages.txt&quot;             
+[33] &quot;Microvascular.txt&quot;            &quot;MT.hi.txt&quot;                   
+[35] &quot;Myofibroblasts.txt&quot;           &quot;NKs.txt&quot;                     
+[37] &quot;Pericytes.txt&quot;                &quot;Plasma.txt&quot;                  
+[39] &quot;Post.capillary.Venules.txt&quot;   &quot;RSPO3..txt&quot;                  
+[41] &quot;Secretory.TA.txt&quot;             &quot;Stem.txt&quot;                    
+[43] &quot;TA.1.txt&quot;                     &quot;TA.2.txt&quot;                    
+[45] &quot;Tregs.txt&quot;                    &quot;Tuft.txt&quot;                    
+[47] &quot;WNT2B..Fos.hi.txt&quot;            &quot;WNT2B..Fos.lo.1.txt&quot;         
+[49] &quot;WNT2B..Fos.lo.2.txt&quot;          &quot;WNT5B..1.txt&quot;                
+[51] &quot;WNT5B..2.txt&quot;                </code></pre>
+<pre class="r"><code>cc= c()
+for(mm in 1:length(ll)){
+  df = read.delim(paste0(&quot;/Users/kushaldey/Documents/singlecellLDSC/data/Healthy_gene_score_Feb1/&quot;, ll[mm]), header=F)
+  cc = cbind(cc, df[,2])
+}
+colnames(cc) = ll
+cormat = cor(cc)
+corrplot(cormat, tl.cex = 0.5, tl.srt = 45)</code></pre>
+<p><img src="figure/IBD_scores_comparison.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>cc= c()
+for(mm in 1:length(ll)){
+  df = read.delim(paste0(&quot;/Users/kushaldey/Documents/singlecellLDSC/data/Inflamed_gene_score_Feb1/&quot;, ll[mm]), header=F)
+  cc = cbind(cc, df[,2])
+}
+colnames(cc) = ll
+cormat = cor(cc)
+corrplot(cormat, tl.cex = 0.5, tl.srt = 45)</code></pre>
+<p><img src="figure/IBD_scores_comparison.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>cc= c()
+for(mm in 1:length(ll)){
+  df = read.delim(paste0(&quot;/Users/kushaldey/Documents/singlecellLDSC/data/HealthyVInflamed_gene_score_Feb1/&quot;, ll[mm]), header=F)
+  cc = cbind(cc, df[,2])
+}
+colnames(cc) = ll
+cormat = cor(cc)
+corrplot(cormat, tl.cex = 0.5, tl.srt = 45)</code></pre>
+<p><img src="figure/IBD_scores_comparison.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="mean-correlation-across-healthy-inflamed-and-healthyvinflamed" class="section level2">
+<h2>Mean correlation across healthy, inflamed and healthyvinflamed</h2>
+<pre class="r"><code>cormat = matrix(0, 3, 3)
+for(mm in 1:length(ll)){
+  df = read.delim(paste0(&quot;/Users/kushaldey/Documents/singlecellLDSC/data/Healthy_gene_score_Feb1/&quot;, ll[mm]), header=F)
+  df2 = read.delim(paste0(&quot;/Users/kushaldey/Documents/singlecellLDSC/data/Inflamed_gene_score_Feb1/&quot;, ll[mm]), header=F)
+  df3 = read.delim(paste0(&quot;/Users/kushaldey/Documents/singlecellLDSC/data/HealthyVInflamed_gene_score_Feb1/&quot;, ll[mm]), header=F)
+  cormat = cormat + cor(cbind(df[,2], df2[,2], df3[,2]))
+}
+cormat = cormat/length(ll)
+colnames(cormat) = c(&quot;Healthy&quot;, &quot;Inflamed&quot;, &quot;HealthyvInflamed&quot;)
+rownames(cormat) = colnames(cormat)
+corrplot(cormat, tl.cex = 1, tl.srt = 45)</code></pre>
+<p><img src="figure/IBD_scores_comparison.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="comparison-with-ppi-enhancer-and-master-regulator-genes" class="section level2">
+<h2>Comparison with PPI-Enhancer and Master-Regulator genes</h2>
+<pre class="r"><code>PPI_enhancer = read.delim(&quot;/Users/kushaldey/Documents/singlecellLDSC/data/Other_Gene_Scores/RWR_SEG_ABC_HOMOD_EDS.txt&quot;,
+                          header=F)
+MR = read.delim(&quot;/Users/kushaldey/Documents/singlecellLDSC/data/Other_Gene_Scores/master_regulator_genes_Nov11.txt&quot;,
+                header=F)
+
+idx = match(PPI_enhancer[,1], df2[,1])
+idx2 = match(MR[,1], df2[,1])
+
+cc= c()
+for(mm in 1:length(ll)){
+  df = read.delim(paste0(&quot;/Users/kushaldey/Documents/singlecellLDSC/data/Healthy_gene_score_Feb1/&quot;, ll[mm]), header=F)
+  df2 = read.delim(paste0(&quot;/Users/kushaldey/Documents/singlecellLDSC/data/Inflamed_gene_score_Feb1/&quot;, ll[mm]), header=F)
+  df3 = read.delim(paste0(&quot;/Users/kushaldey/Documents/singlecellLDSC/data/HealthyVInflamed_gene_score_Feb1/&quot;, ll[mm]), header=F)
+  cc = rbind(cc, c(mean(df[idx,2]*PPI_enhancer[,2], na.rm = T)/mean(df[,2], na.rm = T), 
+                   mean(df[idx2,2]*MR[,2], na.rm = T)/mean(df[,2], na.rm = T), 
+                   mean(df2[idx,2]*PPI_enhancer[,2], na.rm = T)/mean(df[,2], na.rm = T), 
+                   mean(df2[idx2,2]*MR[,2], na.rm = T)/mean(df[,2], na.rm = T),
+                   mean(df3[idx,2]*PPI_enhancer[,2], na.rm = T)/mean(df[,2], na.rm = T), 
+                   mean(df3[idx2,2]*MR[,2], na.rm = T)/mean(df[,2], na.rm = T)))
+}
+rownames(cc) = ll
+colnames(cc) = c(&quot;PPIE_Healthy&quot;, &quot;MR_Healthy&quot;,
+                 &quot;PPIE_Inflamed&quot;, &quot;MR_Inflamed&quot;, 
+                 &quot;PPIE_H.V.I&quot;, &quot;MR_H.V.I&quot;)
+cc</code></pre>
+<pre><code>                             PPIE_Healthy MR_Healthy PPIE_Inflamed
+Best4..Enterocytes.txt          1.1894921  1.4303666     1.7648096
+CD4..Activated.Fos.hi.txt       2.3616587  1.2145372     2.2165426
+CD4..Activated.Fos.lo.txt       2.2862768  1.1699164     1.9745168
+CD4..Memory.txt                 2.0986660  1.0844347     1.9600840
+CD4..PD1..txt                   1.3812002  0.9783665     2.2456542
+CD69..Mast.1.txt                1.3454165  0.9623488     1.2995553
+CD69..Mast.txt                  1.5694938  0.8136737     1.9677370
+CD8..IELs.txt                   2.1261831  1.2190962     2.1601161
+CD8..IL17..txt                  1.5846325  1.0748250     2.9702905
+CD8..LP.txt                     2.5104908  1.2487073     2.3903940
+Cycling.B.txt                   1.1390661  1.2691850     1.6721743
+Cycling.Monocytes.txt           1.4852783  1.4701620     1.0837925
+Cycling.T.txt                   1.5242621  1.1258095     3.4185365
+Cycling.TA.txt                  0.8876699  1.3350763     1.1688606
+DC1.txt                         1.6402932  1.4624623     1.9889214
+DC2.txt                         1.8031391  1.4540396     2.0364990
+Endothelial.txt                 1.7495440  1.2441740     3.3133428
+Enterocyte.Progenitors.txt      1.0678035  1.0738687     1.8425508
+Enterocytes.txt                 1.4329461  1.4254942     1.9952033
+Enteroendocrine.txt             0.9100265  1.2075238     1.5788181
+Follicular.txt                  1.9683124  1.2388630     2.0801087
+GC.txt                          1.5439215  1.1804538     2.7852947
+Glia.txt                        1.6055281  1.1067015     2.2160185
+Goblet.txt                      1.5644046  1.2550050     2.6197581
+ILCs.txt                        1.6465548  1.1019538     1.9697097
+Immature.Enterocytes.1.txt      1.6554463  1.4013661     1.4902175
+Immature.Enterocytes.2.txt      1.1459047  1.4139428     1.3423192
+Immature.Goblet.txt             1.0085048  0.9269466     3.2913894
+Inflammatory.Fibroblasts.txt    1.2684964  1.1465754     6.8289953
+Inflammatory.Monocytes.txt      1.8809365  1.3613074     2.9669339
+M.cells.txt                     1.0177254  1.2344350     4.2300506
+Macrophages.txt                 2.1438991  1.4489143     1.5509790
+Microvascular.txt               1.4288628  1.3847802     1.3194886
+MT.hi.txt                       1.4157712  0.9437326     1.2072369
+Myofibroblasts.txt              1.3837098  1.1000396     2.4458827
+NKs.txt                         1.9954472  1.1394028     2.6393920
+Pericytes.txt                   1.4318297  0.9758631     2.7832158
+Plasma.txt                      1.2408194  1.2370946     0.7470724
+Post.capillary.Venules.txt      1.4055034  1.3013543     2.9898820
+RSPO3..txt                      1.3903659  1.1251423     1.5870493
+Secretory.TA.txt                0.9416703  1.4086050     1.3327646
+Stem.txt                        0.8898540  1.3759860     1.3943593
+TA.1.txt                        0.7883320  0.6693627     1.8173157
+TA.2.txt                        0.9358505  1.3626046     1.2237857
+Tregs.txt                       2.0711506  1.0915960     2.8498900
+Tuft.txt                        1.1530813  0.8249426     1.2221742
+WNT2B..Fos.hi.txt               1.3760963  1.3020454     1.5603789
+WNT2B..Fos.lo.1.txt             1.2482625  1.2986636     1.2493370
+WNT2B..Fos.lo.2.txt             1.4811835  0.9144573     1.6713005
+WNT5B..1.txt                    1.5081027  1.2064454     1.7563656
+WNT5B..2.txt                    1.5106378  1.1638465     1.5189634
+                             MR_Inflamed PPIE_H.V.I  MR_H.V.I
+Best4..Enterocytes.txt         2.0892194  1.1643309 1.1040485
+CD4..Activated.Fos.hi.txt      1.1387673  1.5807069 1.3477563
+CD4..Activated.Fos.lo.txt      1.0383680  1.7617002 1.5300994
+CD4..Memory.txt                1.0630280  1.7353443 1.5205602
+CD4..PD1..txt                  1.7780921  1.6403589 1.6198971
+CD69..Mast.1.txt               1.0796194  2.0735964 2.0804127
+CD69..Mast.txt                 0.9216975  2.3198015 1.9597265
+CD8..IELs.txt                  1.2859048  1.7033317 1.5035688
+CD8..IL17..txt                 1.9183176  1.9881151 1.7624464
+CD8..LP.txt                    1.2364422  1.6639973 1.5148891
+Cycling.B.txt                  2.1837884  0.6091265 0.5961320
+Cycling.Monocytes.txt          1.0487889  0.4364332 0.4214341
+Cycling.T.txt                  3.6580313  1.9272207 2.0513816
+Cycling.TA.txt                 1.5800928  1.1388038 1.3132480
+DC1.txt                        1.8407883  0.8112496 0.7677705
+DC2.txt                        1.8082324  0.7561746 0.6595755
+Endothelial.txt                2.4942195  1.8724453 1.5887762
+Enterocyte.Progenitors.txt     1.8040726  2.9500005 2.6798333
+Enterocytes.txt                1.9515622  1.5203278 1.3106617
+Enteroendocrine.txt            1.7786221  1.0962840 0.9745035
+Follicular.txt                 1.3314649  1.6622821 1.3767755
+GC.txt                         2.5074606  1.4843470 1.3025253
+Glia.txt                       1.5705873  1.7000264 1.5978739
+Goblet.txt                     2.2100334  2.4182439 2.2951373
+ILCs.txt                       1.3363584  1.4845388 1.3707553
+Immature.Enterocytes.1.txt     1.1894634  1.1906496 0.8949569
+Immature.Enterocytes.2.txt     1.5463084  1.0411863 0.8917361
+Immature.Goblet.txt            3.5457799  4.4299916 4.5338189
+Inflammatory.Fibroblasts.txt   7.8193195  1.7210405 1.6153749
+Inflammatory.Monocytes.txt     1.9166409  1.4494293 1.1835336
+M.cells.txt                    4.9608379  1.5748435 1.4413122
+Macrophages.txt                0.8210100  0.5470807 0.3699443
+Microvascular.txt              1.1762195  0.6191412 0.5298430
+MT.hi.txt                      0.9207238  1.7898697 1.7435393
+Myofibroblasts.txt             1.8550153  1.5924750 1.2186339
+NKs.txt                        1.6650308  2.0235760 1.8330699
+Pericytes.txt                  1.6910650  1.8224826 1.7075437
+Plasma.txt                     0.7817059  0.6560512 0.6303645
+Post.capillary.Venules.txt     3.2913763  1.4253342 1.1866305
+RSPO3..txt                     1.3606784  1.2491080 1.2143013
+Secretory.TA.txt               1.7802448  1.0519449 1.0049317
+Stem.txt                       1.8719310  0.8917634 0.8037642
+TA.1.txt                       1.5652054  7.9257672 8.1958656
+TA.2.txt                       1.6522269  1.0545219 1.0416155
+Tregs.txt                      1.6264723  1.8840538 1.6301300
+Tuft.txt                       0.9114022  1.5624708 1.4873636
+WNT2B..Fos.hi.txt              1.3854760  0.8200664 0.6211820
+WNT2B..Fos.lo.1.txt            1.0502463  0.6445768 0.4283494
+WNT2B..Fos.lo.2.txt            0.8135434  1.7380449 1.3543160
+WNT5B..1.txt                   1.2906351  1.0514134 0.8132425
+WNT5B..2.txt                   0.9880669  0.8713116 0.6586754</code></pre>
+<pre class="r"><code>cc= c()
+for(mm in 1:length(ll)){
+  df = read.delim(paste0(&quot;/Users/kushaldey/Documents/singlecellLDSC/data/Healthy_gene_score_Feb1/&quot;, ll[mm]), header=F)
+  df2 = read.delim(paste0(&quot;/Users/kushaldey/Documents/singlecellLDSC/data/Inflamed_gene_score_Feb1/&quot;, ll[mm]), header=F)
+  df3 = read.delim(paste0(&quot;/Users/kushaldey/Documents/singlecellLDSC/data/HealthyVInflamed_gene_score_Feb1/&quot;, ll[mm]), header=F)
+  cc = rbind(cc, c(mean(df[,2]), mean(df2[,2]), mean(df3[,2])))
+}
+rownames(cc) = ll
+colnames(cc) = c(&quot;Healthy&quot;, &quot;Inflamed&quot;, &quot;H.V.I&quot;)
+cc</code></pre>
+<pre><code>                                Healthy   Inflamed      H.V.I
+Best4..Enterocytes.txt       0.16542076 0.25497616 0.15437769
+CD4..Activated.Fos.hi.txt    0.05246681 0.04956990 0.06328160
+CD4..Activated.Fos.lo.txt    0.04640564 0.04442163 0.06465823
+CD4..Memory.txt              0.04197487 0.03754662 0.05616391
+CD4..PD1..txt                0.03994600 0.05676934 0.05956389
+CD69..Mast.1.txt             0.04041325 0.04246449 0.08075208
+CD69..Mast.txt               0.03097310 0.03236115 0.05757146
+CD8..IELs.txt                0.05012092 0.04978986 0.06258588
+CD8..IL17..txt               0.04001893 0.05903977 0.06323981
+CD8..LP.txt                  0.04591932 0.04184492 0.05894234
+Cycling.B.txt                0.14303044 0.22881660 0.06900700
+Cycling.Monocytes.txt        0.14984068 0.11123185 0.06152451
+Cycling.T.txt                0.06179834 0.16202090 0.10005812
+Cycling.TA.txt               0.41879094 0.50877699 0.41967293
+DC1.txt                      0.08992511 0.11110965 0.06387194
+DC2.txt                      0.13994254 0.17005537 0.07663272
+Endothelial.txt              0.05795099 0.11218580 0.08398459
+Enterocyte.Progenitors.txt   0.03227437 0.04832440 0.06942667
+Enterocytes.txt              0.17103489 0.24164882 0.17789493
+Enteroendocrine.txt          0.07516856 0.10552493 0.06740423
+Follicular.txt               0.05096066 0.04634526 0.05421228
+GC.txt                       0.06153789 0.11014739 0.06399117
+Glia.txt                     0.05131819 0.06898636 0.07182590
+Goblet.txt                   0.05715322 0.09821320 0.10957347
+ILCs.txt                     0.04242610 0.04862696 0.05639686
+Immature.Enterocytes.1.txt   0.07305798 0.06645151 0.05999219
+Immature.Enterocytes.2.txt   0.27196679 0.31105813 0.19837819
+Immature.Goblet.txt          0.05092214 0.14973691 0.17742553
+Inflammatory.Fibroblasts.txt 0.05385840 0.31827294 0.08088759
+Inflammatory.Monocytes.txt   0.04798417 0.05977219 0.05342181
+M.cells.txt                  0.06861260 0.24832720 0.08790263
+Macrophages.txt              0.11988636 0.06534953 0.03961813
+Microvascular.txt            0.12129535 0.10523040 0.06109054
+MT.hi.txt                    0.02895408 0.02894623 0.04956897
+Myofibroblasts.txt           0.06375943 0.10410096 0.07367229
+NKs.txt                      0.04062190 0.04872174 0.06145040
+Pericytes.txt                0.03931898 0.06314398 0.06317568
+Plasma.txt                   0.12702610 0.07960024 0.06818440
+Post.capillary.Venules.txt   0.10517784 0.25123992 0.10560230
+RSPO3..txt                   0.06248390 0.07430055 0.07136166
+Secretory.TA.txt             0.30402216 0.40040540 0.24511036
+Stem.txt                     0.24732211 0.34432082 0.16205397
+TA.1.txt                     0.01807197 0.03002839 0.10750646
+TA.2.txt                     0.34736188 0.42928368 0.28325957
+Tregs.txt                    0.04580352 0.05791634 0.06498597
+Tuft.txt                     0.03259776 0.03486390 0.04771456
+WNT2B..Fos.hi.txt            0.13222035 0.14655317 0.07843150
+WNT2B..Fos.lo.1.txt          0.15303079 0.13670543 0.06961434
+WNT2B..Fos.lo.2.txt          0.03930653 0.03919712 0.05420431
+WNT5B..1.txt                 0.08958735 0.09542008 0.06730299
+WNT5B..2.txt                 0.08613887 0.07747917 0.05644474</code></pre>
+</div>
+<div id="session-information" class="section level2">
+<h2>Session information</h2>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.5.1 (2018-07-02)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS High Sierra 10.13.6
+
+Matrix products: default
+BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] ggplot2_3.1.1 corrplot_0.84
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.1        knitr_1.20        whisker_0.3-2    
+ [4] magrittr_1.5      workflowr_1.1.1   tidyselect_0.2.5 
+ [7] munsell_0.5.0     colorspace_1.4-1  R6_2.4.0         
+[10] rlang_0.4.2       dplyr_0.8.0.1     plyr_1.8.4       
+[13] stringr_1.4.0     tools_3.5.1       grid_3.5.1       
+[16] gtable_0.3.0      R.oo_1.22.0       withr_2.1.2      
+[19] git2r_0.23.0      htmltools_0.3.6   assertthat_0.2.1 
+[22] yaml_2.2.0        lazyeval_0.2.2    rprojroot_1.3-2  
+[25] digest_0.6.19     tibble_2.1.1      crayon_1.3.4     
+[28] purrr_0.3.2       R.utils_2.7.0     glue_1.3.1       
+[31] evaluate_0.12     rmarkdown_1.10    stringi_1.4.3    
+[34] pillar_1.3.1      compiler_3.5.1    scales_1.0.0     
+[37] backports_1.1.4   R.methodsS3_1.7.1 pkgconfig_2.0.2  </code></pre>
+</div>
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+<hr>
+<p>
+  This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a>
+  analysis was created with
+  <a href="https://github.com/jdblischak/workflowr">workflowr</a> 1.1.1
+</p>
+<hr>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

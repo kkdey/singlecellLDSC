@@ -1,0 +1,119 @@
+---
+title: "Comparison of Healthy, Inflamed and HealthyvInflamed scores"
+author: "K. K. Dey, K. Jagadeesh and Alkes Price"
+date: "2/1/2020"
+output: html_document
+---
+
+```{r}
+library(corrplot)
+library(ggplot2)
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+ll = list.files("/Users/kushaldey/Documents/singlecellLDSC/data/Healthy_gene_score_Feb1/")
+ll
+```
+
+```{r}
+cc= c()
+for(mm in 1:length(ll)){
+  df = read.delim(paste0("/Users/kushaldey/Documents/singlecellLDSC/data/Healthy_gene_score_Feb1/", ll[mm]), header=F)
+  cc = cbind(cc, df[,2])
+}
+colnames(cc) = ll
+cormat = cor(cc)
+corrplot(cormat, tl.cex = 0.5, tl.srt = 45)
+```
+
+```{r}
+cc= c()
+for(mm in 1:length(ll)){
+  df = read.delim(paste0("/Users/kushaldey/Documents/singlecellLDSC/data/Inflamed_gene_score_Feb1/", ll[mm]), header=F)
+  cc = cbind(cc, df[,2])
+}
+colnames(cc) = ll
+cormat = cor(cc)
+corrplot(cormat, tl.cex = 0.5, tl.srt = 45)
+```
+
+
+
+
+
+
+
+```{r}
+cc= c()
+for(mm in 1:length(ll)){
+  df = read.delim(paste0("/Users/kushaldey/Documents/singlecellLDSC/data/HealthyVInflamed_gene_score_Feb1/", ll[mm]), header=F)
+  cc = cbind(cc, df[,2])
+}
+colnames(cc) = ll
+cormat = cor(cc)
+corrplot(cormat, tl.cex = 0.5, tl.srt = 45)
+```
+
+## Mean correlation across healthy, inflamed and healthyvinflamed
+
+```{r}
+cormat = matrix(0, 3, 3)
+for(mm in 1:length(ll)){
+  df = read.delim(paste0("/Users/kushaldey/Documents/singlecellLDSC/data/Healthy_gene_score_Feb1/", ll[mm]), header=F)
+  df2 = read.delim(paste0("/Users/kushaldey/Documents/singlecellLDSC/data/Inflamed_gene_score_Feb1/", ll[mm]), header=F)
+  df3 = read.delim(paste0("/Users/kushaldey/Documents/singlecellLDSC/data/HealthyVInflamed_gene_score_Feb1/", ll[mm]), header=F)
+  cormat = cormat + cor(cbind(df[,2], df2[,2], df3[,2]))
+}
+cormat = cormat/length(ll)
+colnames(cormat) = c("Healthy", "Inflamed", "HealthyvInflamed")
+rownames(cormat) = colnames(cormat)
+corrplot(cormat, tl.cex = 1, tl.srt = 45)
+```
+
+## Comparison with PPI-Enhancer and Master-Regulator genes 
+
+```{r}
+PPI_enhancer = read.delim("/Users/kushaldey/Documents/singlecellLDSC/data/Other_Gene_Scores/RWR_SEG_ABC_HOMOD_EDS.txt",
+                          header=F)
+MR = read.delim("/Users/kushaldey/Documents/singlecellLDSC/data/Other_Gene_Scores/master_regulator_genes_Nov11.txt",
+                header=F)
+
+idx = match(PPI_enhancer[,1], df2[,1])
+idx2 = match(MR[,1], df2[,1])
+
+cc= c()
+for(mm in 1:length(ll)){
+  df = read.delim(paste0("/Users/kushaldey/Documents/singlecellLDSC/data/Healthy_gene_score_Feb1/", ll[mm]), header=F)
+  df2 = read.delim(paste0("/Users/kushaldey/Documents/singlecellLDSC/data/Inflamed_gene_score_Feb1/", ll[mm]), header=F)
+  df3 = read.delim(paste0("/Users/kushaldey/Documents/singlecellLDSC/data/HealthyVInflamed_gene_score_Feb1/", ll[mm]), header=F)
+  cc = rbind(cc, c(mean(df[idx,2]*PPI_enhancer[,2], na.rm = T)/mean(df[,2], na.rm = T), 
+                   mean(df[idx2,2]*MR[,2], na.rm = T)/mean(df[,2], na.rm = T), 
+                   mean(df2[idx,2]*PPI_enhancer[,2], na.rm = T)/mean(df[,2], na.rm = T), 
+                   mean(df2[idx2,2]*MR[,2], na.rm = T)/mean(df[,2], na.rm = T),
+                   mean(df3[idx,2]*PPI_enhancer[,2], na.rm = T)/mean(df[,2], na.rm = T), 
+                   mean(df3[idx2,2]*MR[,2], na.rm = T)/mean(df[,2], na.rm = T)))
+}
+rownames(cc) = ll
+colnames(cc) = c("PPIE_Healthy", "MR_Healthy",
+                 "PPIE_Inflamed", "MR_Inflamed", 
+                 "PPIE_H.V.I", "MR_H.V.I")
+cc
+```
+
+```{r}
+cc= c()
+for(mm in 1:length(ll)){
+  df = read.delim(paste0("/Users/kushaldey/Documents/singlecellLDSC/data/Healthy_gene_score_Feb1/", ll[mm]), header=F)
+  df2 = read.delim(paste0("/Users/kushaldey/Documents/singlecellLDSC/data/Inflamed_gene_score_Feb1/", ll[mm]), header=F)
+  df3 = read.delim(paste0("/Users/kushaldey/Documents/singlecellLDSC/data/HealthyVInflamed_gene_score_Feb1/", ll[mm]), header=F)
+  cc = rbind(cc, c(mean(df[,2]), mean(df2[,2]), mean(df3[,2])))
+}
+rownames(cc) = ll
+colnames(cc) = c("Healthy", "Inflamed", "H.V.I")
+cc
+```
+

@@ -1,0 +1,66 @@
+---
+title: "Difference in enrichment analysis"
+author: "Kushal K. Dey, K. Jagadeesh and Alkes Price"
+date: "2/8/2020"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+
+```{r setup, include=FALSE}
+library(knitr)
+library(rmarkdown)
+```
+
+```{r}
+library(ggplot2)
+library(corrplot)
+library(qvalue)
+```
+
+
+```{r}
+ll = list.files("/Users/kushaldey/Documents/singlecellLDSC/data/Healthy_gene_score_Feb1/")
+ll
+```
+
+```{r}
+IBD_ldsc_1 = get(load("/Users/kushaldey/Documents/singlecellLDSC/output/Healthy_gene_score_Feb1_plus_All_IBD.rda"))
+dim(IBD_ldsc_1)
+IBD_ldsc_2 = get(load("/Users/kushaldey/Documents/singlecellLDSC/output/HVI_gene_score_Feb1_plus_Healthy_plus_All.rda"))
+dim(IBD_ldsc_2)
+```
+
+```{r}
+E_table_1 = IBD_ldsc_1[,,3,3]
+pE_table_1 = IBD_ldsc_1[,,3,4]
+E_table_1[which(pE_table_1 > 0.01)] = 1
+
+E_table_2 = IBD_ldsc_2[,,3,3]
+pE_table_2 = IBD_ldsc_2[,,3,4]
+E_table_2[which(pE_table_2 > 0.01)] = 1
+```
+
+```{r fig.height=12, fig.width=20}
+pos_table = E_table_2 - E_table_1
+corrplot(pos_table, is.corr = F, tl.cex = 0.7, tl.srt = 45)
+```
+
+
+```{r fig.height=12, fig.width=20}
+sE_table1 = (E_table_1 - 1)/qnorm(1 - pE_table_1)
+
+sE_table2 = (E_table_2 - 1)/qnorm(1 - pE_table_2)
+
+sE_table_pool = sqrt(sE_table1^2 + sE_table2^2)
+sE_table_pool[sE_table_pool == 0] = 1000
+pE_table = 2*(1 - pnorm(abs((E_table_2 - E_table_1)/sE_table_pool), 0, 1))
+qE_table = matrix(qvalue(as.vector(pE_table))$qvalues, nrow = nrow(pE_table), ncol = ncol(pE_table))
+
+E_table_diff = (E_table_2 - E_table_1)
+E_table_diff[which(qE_table > 0.05 & pE_table > 0.01)] = 0
+
+corrplot(E_table_diff, is.corr = F, tl.cex = 0.7, tl.srt = 45)
+```
+

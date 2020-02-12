@@ -1,0 +1,198 @@
+---
+title: "IBD 51 modules 64 traits S-LDSC analysis"
+author: "Kushal K. Dey and Alkes Price"
+date: "1/30/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+library(corrplot)
+library(qvalue)
+```
+
+```{r}
+IBD_ldsc = get(load("/Users/kushaldey/Documents/singlecellLDSC/output/IBD_51_modules_S_LDSC.rda"))
+dim(IBD_ldsc)
+```
+
+## Roadmap Enhancers linked to Genes 
+
+```{r}
+tau_table = IBD_ldsc[,,5,1]
+ptau_table = IBD_ldsc[,,5,2]
+qtau_table = matrix(qvalue(as.vector(ptau_table))$qvalues, nrow = nrow(tau_table), ncol = ncol(tau_table))
+ptau_table2 = matrix(qvalue(as.vector(ptau_table))$pvalues, nrow = nrow(tau_table), ncol = ncol(tau_table))
+tau_table[which(qtau_table > 0.1)] = 0
+tau_table[tau_table < 0] = 0
+```
+
+```{r fig.height=12, fig.width=20}
+corrplot(tau_table, is.corr = F, tl.cex = 0.7, tl.srt = 45)
+```
+
+
+```{r}
+E_table = IBD_ldsc[,,5,3]
+pE_table = IBD_ldsc[,,5,4]
+qE_table = matrix(qvalue(as.vector(pE_table))$qvalues, nrow = nrow(E_table), ncol = ncol(E_table))
+pE_table2 = matrix(qvalue(as.vector(pE_table))$pvalues, nrow = nrow(E_table), ncol = ncol(E_table))
+E_table[which(qE_table > 0.05 & pE_table2 > 0.05)] = 1 
+E_table[E_table < 1] = 1
+```
+
+```{r fig.height=12, fig.width=20}
+corrplot(E_table, is.corr = F, tl.cex = 0.7, tl.srt = 45)
+```
+
+```{r}
+apply(E_table, 2, mean)[order(apply(E_table, 2, mean), decreasing = T)][1:15]
+```
+
+```{r}
+apply(E_table, 2, sd)[order(apply(E_table, 2, sd), decreasing = T)][1:15]
+```
+
+
+```{r}
+E_table[order(E_table[,"PASS_IBD_deLange2017"], decreasing = T)[1:10],"PASS_IBD_deLange2017"]
+E_table[order(E_table[,"PASS_IBD_deLange2017"], decreasing = F)[1:10],"PASS_IBD_deLange2017"]
+```
+
+```{r}
+E_table[order(E_table[,"PASS_Alzheimers_Jansen2019"], decreasing = T)[1:10],"PASS_Alzheimers_Jansen2019"]
+E_table[order(E_table[,"PASS_Alzheimers_Jansen2019"], decreasing = F)[1:10],"PASS_Alzheimers_Jansen2019"]
+```
+
+## ABC
+
+```{r}
+tau_table = IBD_ldsc[,,6,1]
+ptau_table = IBD_ldsc[,,6,2]
+qtau_table = matrix(qvalue(as.vector(ptau_table))$qvalues, nrow = nrow(tau_table), ncol = ncol(tau_table))
+ptau_table2 = matrix(qvalue(as.vector(ptau_table))$pvalues, nrow = nrow(tau_table), ncol = ncol(tau_table))
+tau_table[which(qtau_table > 0.1)] = 0
+tau_table[tau_table < 0] = 0
+```
+
+```{r fig.height=12, fig.width=20}
+corrplot(tau_table, is.corr = F, tl.cex = 0.7, tl.srt = 45)
+```
+
+```{r}
+E_table = IBD_ldsc[,,6,3]
+pE_table = IBD_ldsc[,,6,4]
+qE_table = matrix(qvalue(as.vector(pE_table))$qvalues, nrow = nrow(E_table), ncol = ncol(E_table))
+pE_table2 = matrix(qvalue(as.vector(pE_table))$pvalues, nrow = nrow(E_table), ncol = ncol(E_table))
+E_table[which(qE_table > 0.05 & pE_table2 > 0.05)] = 1 
+E_table[E_table < 1] = 1
+```
+
+```{r fig.height=12, fig.width=20}
+corrplot(E_table, is.corr = F, tl.cex = 0.7, tl.srt = 45)
+```
+
+
+```{r}
+apply(E_table, 2, mean)[order(apply(E_table, 2, mean), decreasing = T)][1:15]
+```
+
+```{r}
+apply(E_table, 2, sd)[order(apply(E_table, 2, sd), decreasing = T)][1:15]
+```
+
+```{r}
+E_table[order(E_table[,"PASS_IBD_deLange2017"], decreasing = T)[1:10],"PASS_IBD_deLange2017"]
+E_table[order(E_table[,"PASS_IBD_deLange2017"], decreasing = F)[1:10],"PASS_IBD_deLange2017"]
+```
+
+
+## 100kb
+
+
+```{r}
+tau_table = IBD_ldsc[,,1,1]
+ptau_table = IBD_ldsc[,,1,2]
+qtau_table = matrix(qvalue(as.vector(ptau_table))$qvalues, nrow = nrow(tau_table), ncol = ncol(tau_table))
+ptau_table2 = matrix(qvalue(as.vector(ptau_table))$pvalues, nrow = nrow(tau_table), ncol = ncol(tau_table))
+tau_table[which(qtau_table > 0.1)] = 0
+tau_table[tau_table < 0] = 0
+```
+
+```{r fig.height=12, fig.width=20}
+corrplot(tau_table, is.corr = F, tl.cex = 0.7, tl.srt = 45)
+```
+
+```{r}
+E_table = IBD_ldsc[,,1,3]
+pE_table = IBD_ldsc[,,1,4]
+qE_table = matrix(qvalue(as.vector(pE_table))$qvalues, nrow = nrow(E_table), ncol = ncol(E_table))
+pE_table2 = matrix(qvalue(as.vector(pE_table))$pvalues, nrow = nrow(E_table), ncol = ncol(E_table))
+E_table[which(qE_table > 0.05 & pE_table2 > 0.05)] = 1 
+E_table[E_table < 1] = 1
+```
+
+```{r fig.height=12, fig.width=20}
+corrplot(E_table, is.corr = F, tl.cex = 0.7, tl.srt = 45)
+```
+
+
+```{r}
+apply(E_table, 2, mean)[order(apply(E_table, 2, mean), decreasing = T)][1:15]
+```
+
+```{r}
+apply(E_table, 2, sd)[order(apply(E_table, 2, sd), decreasing = T)][1:15]
+```
+
+```{r}
+E_table[order(E_table[,"PASS_IBD_deLange2017"], decreasing = T)[1:10],"PASS_IBD_deLange2017"]
+E_table[order(E_table[,"PASS_IBD_deLange2017"], decreasing = F)[1:10],"PASS_IBD_deLange2017"]
+```
+
+
+## 5kb
+
+```{r}
+tau_table = IBD_ldsc[,,2,1]
+ptau_table = IBD_ldsc[,,2,2]
+qtau_table = matrix(qvalue(as.vector(ptau_table))$qvalues, nrow = nrow(tau_table), ncol = ncol(tau_table))
+ptau_table2 = matrix(qvalue(as.vector(ptau_table))$pvalues, nrow = nrow(tau_table), ncol = ncol(tau_table))
+tau_table[which(qtau_table > 0.1)] = 0
+tau_table[tau_table < 0] = 0
+```
+
+```{r fig.height=12, fig.width=20}
+corrplot(tau_table, is.corr = F, tl.cex = 0.7, tl.srt = 45)
+```
+
+```{r}
+E_table = IBD_ldsc[,,2,3]
+pE_table = IBD_ldsc[,,2,4]
+qE_table = matrix(qvalue(as.vector(pE_table))$qvalues, nrow = nrow(E_table), ncol = ncol(E_table))
+pE_table2 = matrix(qvalue(as.vector(pE_table))$pvalues, nrow = nrow(E_table), ncol = ncol(E_table))
+E_table[which(qE_table > 0.05 & pE_table2 > 0.05)] = 1 
+E_table[E_table < 1] = 1
+```
+
+```{r fig.height=12, fig.width=20}
+corrplot(E_table, is.corr = F, tl.cex = 0.7, tl.srt = 45)
+```
+
+
+```{r}
+apply(E_table, 2, mean)[order(apply(E_table, 2, mean), decreasing = T)][1:15]
+```
+
+```{r}
+apply(E_table, 2, sd)[order(apply(E_table, 2, sd), decreasing = T)][1:15]
+```
+
+```{r}
+E_table[order(E_table[,"PASS_IBD_deLange2017"], decreasing = T)[1:10],"PASS_IBD_deLange2017"]
+E_table[order(E_table[,"PASS_IBD_deLange2017"], decreasing = F)[1:10],"PASS_IBD_deLange2017"]
+```
