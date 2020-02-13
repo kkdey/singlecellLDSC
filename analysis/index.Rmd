@@ -6,4 +6,18 @@ output:
     toc: false
 ---
 
-Welcome to my research website.
+This is the project webpage for libking single cell data with GWAS traits.
+
+## Colon/Gut analysis (Healthy and Inflamed)
+
+We compare gene modules for healthy samples and gene modules per cell-type for healthy versus inflamed.
+
+- [Module Exploration](IBD_scores_comparison.html)
+
+- [Healthy Module Analysis](IBD_healthy_modules.html)
+
+- [Healthy vs. Inflamed Module Analysis](IBD_HVI_modules.html)
+
+
+
+

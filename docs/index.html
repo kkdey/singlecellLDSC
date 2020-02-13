@@ -221,16 +221,15 @@ div.section {
 </div>
 
 
-<p><strong>Last updated:</strong> 2020-02-12</p>
+<p><strong>Last updated:</strong> 2020-02-13</p>
 <strong>workflowr checks:</strong> <small>(Click a bullet for more information)</small>
 <ul>
 <li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>R Markdown file:</strong> up-to-date </summary></p>
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p><details> <summary> <strong style="color:red;">✖</strong> <strong>R Markdown file:</strong> uncommitted changes </summary> The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </details>
 </li>
 <li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> d3172fb </summary></p>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/kkdey/singlecellLDSC/tree/d10bea791b1e4be7b39f762d44bb29d3692be6c4" target="_blank">d10bea7</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
@@ -239,42 +238,8 @@ Ignored files:
     Ignored:    code/.DS_Store
     Ignored:    data/Healthy_gene_score_Top10_Feb1/
 
-Untracked files:
-    Untracked:  analysis/IBD_HVI_modules.Rmd
-    Untracked:  analysis/IBD_LDSC.Rmd
-    Untracked:  analysis/IBD_healthy_HVI_difference.Rmd
-    Untracked:  analysis/IBD_healthy_modules.Rmd
-    Untracked:  analysis/IBD_scores_comparison.Rmd
-    Untracked:  analysis/README.Rmd
-    Untracked:  analysis/README.md
-    Untracked:  code/ALL_bedgraph_calc.R
-    Untracked:  code/baseline_strategies.R
-    Untracked:  code/build_module_annotations.R
-    Untracked:  code/build_module_annotations2.R
-    Untracked:  code/compute_sd_annot.R
-    Untracked:  code/curate_postprocessed_matrix.R
-    Untracked:  code/healthy_logfold_gene_scores.R
-    Untracked:  code/merge_annot_HVI_healthy_all.R
-    Untracked:  code/merge_annot_healthy_all.R
-    Untracked:  code/merge_annot_module_all_genes.R
-    Untracked:  code/postprocess_ldsc.R
-    Untracked:  code/workflow_process_modules.R
-    Untracked:  data/All_IBD_genes.txt
-    Untracked:  data/HealthyVInflamed_gene_score_Feb1/
-    Untracked:  data/Healthy_gene_score/
-    Untracked:  data/Healthy_gene_score_Feb1/
-    Untracked:  data/Healthy_gene_score_Top10/
-    Untracked:  data/Healthy_logfold.csv
-    Untracked:  data/Inflamed_gene_score_Feb1/
-    Untracked:  data/Other_Gene_Scores/
-    Untracked:  data/healthy_score.csv
-    Untracked:  data/healthyvinflamed_score.csv
-    Untracked:  data/inflameddata_score.csv
-    Untracked:  docs/figure/
-    Untracked:  output/HVI_gene_score_Feb1_plus_Healthy_plus_All.rda
-    Untracked:  output/Healthy_gene_score_Feb1_plus_All_IBD.rda
-    Untracked:  output/IBD_51_modules_S_LDSC.rda
-    Untracked:  output/IBD_S_LDSC.rda
+Unstaged changes:
+    Modified:   analysis/index.Rmd
 
 </code></pre>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes. </details>
@@ -305,10 +270,27 @@ Message
 <tbody>
 <tr>
 <td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/kkdey/singlecellLDSC/d10bea791b1e4be7b39f762d44bb29d3692be6c4/docs/index.html" target="_blank">d10bea7</a>
+</td>
+<td style="text-align:left;">
+Kushal K Dey
+</td>
+<td style="text-align:left;">
+2020-02-12
+</td>
+<td style="text-align:left;">
+HVI analysis
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 Rmd
 </td>
 <td style="text-align:left;">
-d3172fb
+<a href="https://github.com/kkdey/singlecellLDSC/blob/d3172fb4dd0574ef33fe0207a5c950b779236f6b/analysis/index.Rmd" target="_blank">d3172fb</a>
 </td>
 <td style="text-align:left;">
 Kushal K Dey
@@ -325,7 +307,16 @@ Start workflowr project.
 </ul>
 <p></details></p>
 <hr />
-<p>Welcome to my research website.</p>
+<p>This is the project webpage for libking single cell data with GWAS traits.</p>
+<div id="colongut-analysis-healthy-and-inflamed" class="section level2">
+<h2>Colon/Gut analysis (Healthy and Inflamed)</h2>
+<p>We compare gene modules for healthy samples and gene modules per cell-type for healthy versus inflamed.</p>
+<ul>
+<li><p><a href="IBD_scores_comparison.html">Module Exploration</a></p></li>
+<li><p><a href="IBD_healthy_modules.html">Healthy Module Analysis</a></p></li>
+<li><p><a href="IBD_HVI_modules.html">Healthy vs. Inflamed Module Analysis</a></p></li>
+</ul>
+</div>
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see
