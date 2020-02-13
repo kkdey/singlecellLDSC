@@ -5,23 +5,24 @@ date: "2/4/2020"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+```{r echo=FALSE, warning=FALSE, message=FALSE}
 library(ggplot2)
 library(corrplot)
 library(qvalue)
 ```
 
-## Gene Module size
+## Gene Modules for HVI
 
 ```{r}
 ll = list.files("/Users/kushaldey/Documents/singlecellLDSC/data/Healthy_gene_score_Feb1/")
 ll
 ```
 
+## Size of gene modules
 
 ```{r}
 cc= c()
@@ -33,6 +34,8 @@ for(mm in 1:length(ll)){
 colnames(cc) = c("Healthy", "HVI")
 head(cc)
 ```
+
+## Load data
 
 ```{r}
 IBD_ldsc = get(load("/Users/kushaldey/Documents/singlecellLDSC/output/HVI_gene_score_Feb1_plus_Healthy_plus_All.rda"))

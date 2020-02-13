@@ -1,5 +1,5 @@
 ---
-title: "Difference in enrichment analysis"
+title: "Difference in enrichment analysis of HVI and Healthy Modules"
 author: "Kushal K. Dey, K. Jagadeesh and Alkes Price"
 date: "2/8/2020"
 output:
@@ -13,17 +13,20 @@ library(knitr)
 library(rmarkdown)
 ```
 
-```{r}
+```{r echo=FALSE, warning=FALSE, message=FALSE}
 library(ggplot2)
 library(corrplot)
 library(qvalue)
 ```
 
+## Gene Modules
 
 ```{r}
 ll = list.files("/Users/kushaldey/Documents/singlecellLDSC/data/Healthy_gene_score_Feb1/")
 ll
 ```
+
+## Load data
 
 ```{r}
 IBD_ldsc_1 = get(load("/Users/kushaldey/Documents/singlecellLDSC/output/Healthy_gene_score_Feb1_plus_All_IBD.rda"))
@@ -31,6 +34,8 @@ dim(IBD_ldsc_1)
 IBD_ldsc_2 = get(load("/Users/kushaldey/Documents/singlecellLDSC/output/HVI_gene_score_Feb1_plus_Healthy_plus_All.rda"))
 dim(IBD_ldsc_2)
 ```
+
+## Differences in Enrichment
 
 ```{r}
 E_table_1 = IBD_ldsc_1[,,3,3]
@@ -48,7 +53,7 @@ corrplot(pos_table, is.corr = F, tl.cex = 0.7, tl.srt = 45)
 ```
 
 
-```{r fig.height=12, fig.width=20}
+```{r echo=FALSE, eval=FALSE, fig.height=12, fig.width=20}
 sE_table1 = (E_table_1 - 1)/qnorm(1 - pE_table_1)
 
 sE_table2 = (E_table_2 - 1)/qnorm(1 - pE_table_2)

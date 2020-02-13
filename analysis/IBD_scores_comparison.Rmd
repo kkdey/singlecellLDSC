@@ -5,7 +5,7 @@ date: "2/1/2020"
 output: html_document
 ---
 
-```{r}
+```{r echo=FALSE, warning=FALSE, message=FALSE}
 library(corrplot)
 library(ggplot2)
 ```
@@ -14,10 +14,14 @@ library(ggplot2)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+The names of the 51 cell-type modules.
+
 ```{r}
 ll = list.files("/Users/kushaldey/Documents/singlecellLDSC/data/Healthy_gene_score_Feb1/")
 ll
 ```
+
+## Correlation of modules (Healthy)
 
 ```{r}
 cc= c()
@@ -30,6 +34,8 @@ cormat = cor(cc)
 corrplot(cormat, tl.cex = 0.5, tl.srt = 45)
 ```
 
+## Correlation of modules (Inflamed)
+
 ```{r}
 cc= c()
 for(mm in 1:length(ll)){
@@ -41,11 +47,7 @@ cormat = cor(cc)
 corrplot(cormat, tl.cex = 0.5, tl.srt = 45)
 ```
 
-
-
-
-
-
+## Correlation of modules (HealthyvsInflamed)
 
 ```{r}
 cc= c()
@@ -103,6 +105,8 @@ colnames(cc) = c("PPIE_Healthy", "MR_Healthy",
                  "PPIE_H.V.I", "MR_H.V.I")
 cc
 ```
+
+## Size of the modules for healthy, inflamed and HVI
 
 ```{r}
 cc= c()

@@ -1,12 +1,12 @@
 ---
-title: "Home"
+title: "singlecellLDSC"
 site: workflowr::wflow_site
 output:
   workflowr::wflow_html:
     toc: false
 ---
 
-This is the project webpage for libking single cell data with GWAS traits.
+This is the project webpage for linking single cell data with GWAS traits.
 
 ## Colon/Gut analysis (Healthy and Inflamed)
 
@@ -16,7 +16,9 @@ We compare gene modules for healthy samples and gene modules per cell-type for h
 
 - [Healthy Module Analysis](IBD_healthy_modules.html)
 
-- [Healthy vs. Inflamed Module Analysis](IBD_HVI_modules.html)
+- [Healthy vs. Inflamed (HVI) Module Analysis](IBD_HVI_modules.html)
+
+- [Comparison of enrichment analysis of Healthy and HVI modules](IBD_healthy_HVI_difference.html)
 
 
 

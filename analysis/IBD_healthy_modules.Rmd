@@ -5,15 +5,19 @@ date: "2/4/2020"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+```{r echo=FALSE, warning=FALSE, message=FALSE}
 library(ggplot2)
 library(corrplot)
 library(qvalue)
 ```
+
+## Load data
+
+We load the tau-star and enrichment results for 64 traits for 51 cell-type modules from Colon/Gut of healthy samples.
 
 ```{r}
 IBD_ldsc = get(load("/Users/kushaldey/Documents/singlecellLDSC/output/Healthy_gene_score_Feb1_plus_All_IBD.rda"))
@@ -30,7 +34,6 @@ ptau_table = IBD_ldsc[,,3,2]
 qtau_table = matrix(qvalue(as.vector(ptau_table))$qvalues, nrow = nrow(tau_table), ncol = ncol(tau_table))
 ptau_table2 = matrix(qvalue(as.vector(ptau_table))$pvalues, nrow = nrow(tau_table), ncol = ncol(tau_table))
 tau_table[which(qtau_table > 0.1)] = 0
-#tau_table[tau_table < 0] = 0
 ```
 
 ```{r fig.height=12, fig.width=20}
@@ -67,7 +70,7 @@ qE_table = matrix(qvalue(as.vector(pE_table))$qvalues, nrow = nrow(E_table), nco
 pE_table2 = matrix(qvalue(as.vector(pE_table))$pvalues, nrow = nrow(E_table), ncol = ncol(E_table))
 E_table[which(qE_table > 0.01 & pE_table2 > 0.001)] = 1 
 E_table[E_table < 1.1] = 1
-Edif_table = E_table - mean(E_table)
+Edif_table = E_table - mean(E_table)  ## subtract the mean
 Edif_table[Edif_table < 0] = 0
 ```
 
@@ -89,7 +92,7 @@ qE_table = matrix(qvalue(as.vector(pE_table))$qvalues, nrow = nrow(E_table), nco
 pE_table2 = matrix(qvalue(as.vector(pE_table))$pvalues, nrow = nrow(E_table), ncol = ncol(E_table))
 E_table[which(qE_table > 0.01 & pE_table2 > 0.001)] = 1 
 E_table[E_table < 1.1] = 1
-Edif_table = E_table - mean(E_table)
+Edif_table = E_table - mean(E_table)  ## subtract the mean
 Edif_table[Edif_table < 0] = 0
 ```
 
