@@ -1,0 +1,174 @@
+---
+title: "Pancreas healthy celltype enriched"
+author: "Kushal K. Dey and Alkes Price"
+date: "3/2/2020"
+output: html_document
+---
+```{r setup, include=FALSE, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyr)
+library(testit)
+rm(list=ls())
+```
+
+```{r}
+get_Etable = function(ff, set_size, tot_genes,  index= 'ABC'){
+  E_table = ff[,,index,4, drop=F]
+  E_table2 = sweep(E_table[-1,,1,1], 2, E_table[1,,1,1], "-")
+  pE_table = ff[,,index,6, drop=F]
+  #set_size2 = 1/(set_size*tot_genes)
+  #testit::assert(length(set_size) == nrow(E_table))
+  qE_table = matrix(qvalue(as.vector(pE_table), pi0=1)$qvalues, nrow = nrow(E_table), ncol = ncol(E_table))
+  qE_table2 = qE_table[-1,]
+  #pE_table2 = matrix(qvalue(as.vector(pE_table), pi0=1)$pvalues, nrow = nrow(E_table), ncol = ncol(E_table))
+  E_table2[which(qE_table2 > 0.05)] = 0
+  E_table2[E_table2 > 3] = 3
+  #E_table[E_table < 1.1] = 1
+  E_table2[E_table2 < 0] = 0
+ # E_table2 = sweep(E_table, 1, set_size2, "*")
+  return(E_table2)
+}
+```
+
+```{r}
+get_tau_table = function(ff, index= 'ABC'){
+  tau_table = ff[,,index,1, drop=F]
+  ptau_table = ff[,,index,3, drop=F]
+  qtau_table = matrix(qvalue(as.vector(ptau_table), pi0=1)$qvalues, nrow = nrow(tau_table), ncol = ncol(tau_table))
+  ptau_table2 = matrix(qvalue(as.vector(ptau_table), pi0=1)$pvalues, nrow = nrow(tau_table), ncol = ncol(tau_table))
+  #tau_table[which(qtau_table > 0.1)] = 0
+  tau_table[tau_table < 0] = 0
+  return(tau_table)
+}
+```
+
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+library(ggplot2)
+library(corrplot)
+library(qvalue)
+```
+
+## Size of annotations
+
+```{r}
+ll = list.files("/Users/kushaldey/Documents/singlecellLDSC/data/Gene_Scores/Modules/healthy/celltype_enriched/pancreas/", full.names = T)
+ll
+```
+
+```{r}
+size_vec = c()
+for(mm in 1:length(ll)){
+  df = read.delim(ll[mm], header = F)
+  size_vec = c(size_vec, mean(df[,2]))
+}
+names(size_vec) = list.files("/Users/kushaldey/Documents/singlecellLDSC/data/Gene_Scores/Modules/healthy/celltype_enriched/pancreas/")
+size_vec
+total_genes = nrow(df)
+total_genes
+```
+
+
+## Load data
+
+We load the tau-star and enrichment results for 64 traits for 51 cell-type modules from healthy colon.
+
+```{r}
+LDSC_proc_results = get(load("/Users/kushaldey/Documents/singlecellLDSC/output/healthy_celltype_enriched_pancreas_output_Mar4_2020_v2.1.rda"))
+dim(LDSC_proc_results)
+```
+
+```{r}
+dimnames(LDSC_proc_results)[[1]]
+```
+
+```{r}
+dimnames(LDSC_proc_results)[[2]]
+```
+
+
+```{r}
+dimnames(LDSC_proc_results)[[3]]
+```
+
+```{r}
+dimnames(LDSC_proc_results)[[4]]
+```
+
+
+### 100kb 
+
+```{r fig.height=12, fig.width=20}
+EE = get_Etable(LDSC_proc_results, set_size = size_vec, tot_genes = total_genes,  '100kb')
+corrplot(as.matrix(as.data.frame(EE)), is.corr = F, tl.cex = 0.7, tl.srt = 45)
+```
+
+```{r}
+apply(EE, 2, mean)[order(apply(EE, 2, mean), decreasing = T)][1:10]
+```
+
+### ABC
+
+```{r fig.height=12, fig.width=20}
+EE = get_Etable(LDSC_proc_results, set_size = size_vec, tot_genes = total_genes,  'ABC')
+corrplot(as.matrix(as.data.frame(EE)), is.corr = F, tl.cex = 0.7, tl.srt = 45)
+```
+
+```{r}
+apply(EE, 2, mean)[order(apply(EE, 2, mean), decreasing = T)][1:10]
+```
+
+
+### Roadmap
+
+```{r fig.height=12, fig.width=20}
+EE = get_Etable(LDSC_proc_results, set_size = size_vec, tot_genes = total_genes,  'Roadmap')
+corrplot(as.matrix(as.data.frame(EE)), is.corr = F, tl.cex = 0.7, tl.srt = 45)
+```
+
+```{r}
+apply(EE, 2, mean)[order(apply(EE, 2, mean), decreasing = T)][1:10]
+```
+
+## tau-table
+
+### 100kb 
+
+```{r fig.height=12, fig.width=20}
+TT = get_tau_table(LDSC_proc_results,  '100kb')
+corrplot(as.matrix(as.data.frame(TT)), is.corr = F, tl.cex = 0.7, tl.srt = 45)
+```
+
+```{r}
+apply(TT, 2, mean)[order(apply(TT, 2, mean), decreasing = T)][1:10]
+```
+
+
+### ABC
+
+```{r fig.height=12, fig.width=20}
+TT = get_tau_table(LDSC_proc_results, 'ABC')
+corrplot(as.matrix(as.data.frame(TT)), is.corr = F, tl.cex = 0.7, tl.srt = 45)
+```
+
+```{r}
+apply(TT, 2, mean)[order(apply(TT, 2, mean), decreasing = T)][1:10]
+```
+
+### Roadmap
+
+```{r fig.height=12, fig.width=20}
+TT = get_tau_table(LDSC_proc_results,  'Roadmap')
+corrplot(as.matrix(as.data.frame(TT)), is.corr = F, tl.cex = 0.7, tl.srt = 45)
+```
+
+```{r}
+apply(TT, 2, mean)[order(apply(TT, 2, mean), decreasing = T)][1:10]
+```
+
+```{r}
+sessionInfo()
+```
+
+
+

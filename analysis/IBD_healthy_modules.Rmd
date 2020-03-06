@@ -68,14 +68,20 @@ E_table = IBD_ldsc[,,3,3]
 pE_table = IBD_ldsc[,,3,4]
 qE_table = matrix(qvalue(as.vector(pE_table))$qvalues, nrow = nrow(E_table), ncol = ncol(E_table))
 pE_table2 = matrix(qvalue(as.vector(pE_table))$pvalues, nrow = nrow(E_table), ncol = ncol(E_table))
-E_table[which(qE_table > 0.01 & pE_table2 > 0.001)] = 1 
+#E_table[which(qE_table > 0.01 & pE_table2 > 0.001)] = 1 
 E_table[E_table < 1.1] = 1
-Edif_table = E_table - mean(E_table)  ## subtract the mean
-Edif_table[Edif_table < 0] = 0
+Edif_table = E_table   ## subtract the mean
+#Edif_table[Edif_table < 0] = 0
+```
+
+
+```{r}
+pE_table[,"PASS_IBD_deLange2017"]
+E_table[,"PASS_IBD_deLange2017"]
 ```
 
 ```{r fig.height=12, fig.width=20}
-corrplot(Edif_table, is.corr = F, tl.cex = 0.7, tl.srt = 45)
+corrplot(Edif_table, is.corr = F, tl.cex = 1.5, tl.srt = 45)
 ```
 
 ```{r}

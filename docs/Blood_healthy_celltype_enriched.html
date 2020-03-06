@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Kushal K. Dey and Alkes Price" />
+
+
+<title>Blood healthy celltype enriched</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">singlecellLDSC</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/jdblischak/workflowr">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Blood healthy celltype enriched</h1>
+<h4 class="author"><em>Kushal K. Dey and Alkes Price</em></h4>
+<h4 class="date"><em>3/2/2020</em></h4>
+
+</div>
+
+
+<p><strong>Last updated:</strong> 2020-03-06</p>
+<strong>workflowr checks:</strong> <small>(Click a bullet for more information)</small>
+<ul>
+<li>
+<p><details> <summary> <strong style="color:red;">✖</strong> <strong>R Markdown file:</strong> uncommitted changes </summary> The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+</details>
+</li>
+<li>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Environment:</strong> empty </summary></p>
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</details>
+</li>
+<li>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Seed:</strong> <code>set.seed(20200127)</code> </summary></p>
+<p>The command <code>set.seed(20200127)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</details>
+</li>
+<li>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Session information:</strong> recorded </summary></p>
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</details>
+</li>
+<li>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/kkdey/singlecellLDSC/tree/34e044d5365577f1976653c9fe50073e906ee919" target="_blank">34e044d</a> </summary></p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    code/.DS_Store
+    Ignored:    data/.DS_Store
+    Ignored:    data/Healthy_gene_score_Top10_Feb1/
+
+Untracked files:
+    Untracked:  analysis/Blood_healthy_celltype_enriched.Rmd
+    Untracked:  analysis/Brain_healthy_celltype_enriched.Rmd
+    Untracked:  analysis/Colon_healthy_celltype_enriched.Rmd
+    Untracked:  analysis/Kidney_healthy_celltype_enriched.Rmd
+    Untracked:  analysis/Lung_healthy_celltype_enriched.Rmd
+    Untracked:  analysis/Pancreas_healthy_celltype_enriched.Rmd
+    Untracked:  code/TWAS_data_process_for_trait.R
+    Untracked:  code/compute_sd_annot2.R
+    Untracked:  code/genes_to_snps.R
+    Untracked:  code/genes_to_snps_promoter.R
+    Untracked:  code/make_sumstats_ex
+    Untracked:  code/meta_single_enrich.R
+    Untracked:  code/meta_single_sd_enrich.R
+    Untracked:  code/module_size.R
+    Untracked:  code/pathdb.R
+    Untracked:  code/postprocess_TWAS.R
+    Untracked:  code/process_autism_sumstats.R
+    Untracked:  code/process_modules_workflow.R
+    Untracked:  code/single_tau_star.R
+    Untracked:  code/web_scrape_TWAS.R
+    Untracked:  data/Gene_Scores/
+    Untracked:  data/Modules/
+    Untracked:  data/UKB_460K.disease_RESPIRATORY_ENT.tar.bz2
+    Untracked:  data/pathdb_brain_healthy/
+    Untracked:  data/pathdb_brain_healthy2/
+    Untracked:  data/pathdb_brain_healthy3/
+    Untracked:  docs/figure/Blood_healthy_celltype_enriched.Rmd/
+    Untracked:  docs/figure/Brain_healthy_celltype_enriched.Rmd/
+    Untracked:  docs/figure/Colon_healthy_celltype_enriched.Rmd/
+    Untracked:  docs/figure/Kidney_healthy_celltype_enriched.Rmd/
+    Untracked:  docs/figure/Lung_healthy_celltype_enriched.Rmd/
+    Untracked:  docs/figure/Pancreas_healthy_celltype_enriched.Rmd/
+    Untracked:  output/Etable_for_grant_Feb27_2020.csv
+    Untracked:  output/healthy_celltype_enriched_blood_output_Mar1_2020.rda
+    Untracked:  output/healthy_celltype_enriched_blood_output_Mar4_2020_v2.1.rda
+    Untracked:  output/healthy_celltype_enriched_brain2_output_Mar1_2020.rda
+    Untracked:  output/healthy_celltype_enriched_brain_output_Mar1_2020.rda
+    Untracked:  output/healthy_celltype_enriched_brain_output_Mar3_2020.rda
+    Untracked:  output/healthy_celltype_enriched_brain_output_Mar3_2020_v2.1.rda
+    Untracked:  output/healthy_celltype_enriched_brain_output_Mar4_2020_v2.1.rda
+    Untracked:  output/healthy_celltype_enriched_colon_output_Mar1_2020.rda
+    Untracked:  output/healthy_celltype_enriched_ens_output_Mar1_2020.rda
+    Untracked:  output/healthy_celltype_enriched_kidney_output_Mar1_2020.rda
+    Untracked:  output/healthy_celltype_enriched_lung_output_Mar1_2020.rda
+    Untracked:  output/healthy_celltype_enriched_lung_output_Mar4_2020_v2.1.rda
+    Untracked:  output/healthy_celltype_enriched_pancreas_output_Mar1_2020.rda
+    Untracked:  output/healthy_celltype_enriched_pancreas_output_Mar3_2020.rda
+    Untracked:  output/healthy_celltype_enriched_pancreas_output_Mar3_2020_v2.1.rda
+    Untracked:  output/healthy_celltype_enriched_pancreas_output_Mar4_2020_v2.1.rda
+    Untracked:  output/pEtable_for_grant_Feb27_2020.csv
+
+Unstaged changes:
+    Modified:   analysis/IBD_healthy_modules.Rmd
+    Modified:   code/ALL_bedgraph_calc.R
+    Modified:   code/build_module_annotations2.R
+    Modified:   code/curate_postprocessed_matrix.R
+
+</code></pre>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes. </details>
+</li>
+</ul>
+<hr />
+<pre class="r"><code>get_Etable = function(ff, set_size, tot_genes,  index= &#39;ABC&#39;){
+  E_table = ff[,,index,4, drop=F]
+  E_table2 = sweep(E_table[-1,,1,1], 2, E_table[1,,1,1], &quot;-&quot;)
+  pE_table = ff[,,index,6, drop=F]
+  #set_size2 = 1/(set_size*tot_genes)
+  #testit::assert(length(set_size) == nrow(E_table))
+  qE_table = matrix(qvalue(as.vector(pE_table), pi0=1)$qvalues, nrow = nrow(E_table), ncol = ncol(E_table))
+  qE_table2 = qE_table[-1,]
+  #pE_table2 = matrix(qvalue(as.vector(pE_table), pi0=1)$pvalues, nrow = nrow(E_table), ncol = ncol(E_table))
+  E_table2[which(qE_table2 &gt; 0.05)] = 0
+  E_table2[E_table2 &gt; 3] = 3
+  #E_table[E_table &lt; 1.1] = 1
+  E_table2[E_table2 &lt; 0] = 0
+ # E_table2 = sweep(E_table, 1, set_size2, &quot;*&quot;)
+  return(E_table2)
+}</code></pre>
+<pre class="r"><code>get_tau_table = function(ff, index= &#39;ABC&#39;){
+  tau_table = ff[,,index,1, drop=F]
+  ptau_table = ff[,,index,3, drop=F]
+  qtau_table = matrix(qvalue(as.vector(ptau_table), pi0=1)$qvalues, nrow = nrow(tau_table), ncol = ncol(tau_table))
+  ptau_table2 = matrix(qvalue(as.vector(ptau_table), pi0=1)$pvalues, nrow = nrow(tau_table), ncol = ncol(tau_table))
+  #tau_table[which(qtau_table &gt; 0.1)] = 0
+  tau_table[tau_table &lt; 0] = 0
+  return(tau_table)
+}</code></pre>
+<div id="size-of-annotations" class="section level2">
+<h2>Size of annotations</h2>
+<pre class="r"><code>ll = list.files(&quot;/Users/kushaldey/Documents/singlecellLDSC/data/Gene_Scores/Modules/healthy/celltype_enriched/pancreas/&quot;, full.names = T)
+ll</code></pre>
+<pre><code> [1] &quot;/Users/kushaldey/Documents/singlecellLDSC/data/Gene_Scores/Modules/healthy/celltype_enriched/pancreas//Acinar.txt&quot;             
+ [2] &quot;/Users/kushaldey/Documents/singlecellLDSC/data/Gene_Scores/Modules/healthy/celltype_enriched/pancreas//Alpha.txt&quot;              
+ [3] &quot;/Users/kushaldey/Documents/singlecellLDSC/data/Gene_Scores/Modules/healthy/celltype_enriched/pancreas//Beta.txt&quot;               
+ [4] &quot;/Users/kushaldey/Documents/singlecellLDSC/data/Gene_Scores/Modules/healthy/celltype_enriched/pancreas//Delta.txt&quot;              
+ [5] &quot;/Users/kushaldey/Documents/singlecellLDSC/data/Gene_Scores/Modules/healthy/celltype_enriched/pancreas//Ductal.txt&quot;             
+ [6] &quot;/Users/kushaldey/Documents/singlecellLDSC/data/Gene_Scores/Modules/healthy/celltype_enriched/pancreas//Endothelial.txt&quot;        
+ [7] &quot;/Users/kushaldey/Documents/singlecellLDSC/data/Gene_Scores/Modules/healthy/celltype_enriched/pancreas//Gamma.txt&quot;              
+ [8] &quot;/Users/kushaldey/Documents/singlecellLDSC/data/Gene_Scores/Modules/healthy/celltype_enriched/pancreas//Mast.txt&quot;               
+ [9] &quot;/Users/kushaldey/Documents/singlecellLDSC/data/Gene_Scores/Modules/healthy/celltype_enriched/pancreas//MHCII.txt&quot;              
+[10] &quot;/Users/kushaldey/Documents/singlecellLDSC/data/Gene_Scores/Modules/healthy/celltype_enriched/pancreas//Pancreatic.Stellate.txt&quot;</code></pre>
+<pre class="r"><code>size_vec = c()
+for(mm in 1:length(ll)){
+  df = read.delim(ll[mm], header = F)
+  size_vec = c(size_vec, mean(df[,2]))
+}
+names(size_vec) = list.files(&quot;/Users/kushaldey/Documents/singlecellLDSC/data/Gene_Scores/Modules/healthy/celltype_enriched/pancreas/&quot;)
+size_vec</code></pre>
+<pre><code>             Acinar.txt               Alpha.txt                Beta.txt 
+             0.19556882              0.10202967              0.05840406 
+              Delta.txt              Ductal.txt         Endothelial.txt 
+             0.03135325              0.29277625              0.03715915 
+              Gamma.txt                Mast.txt               MHCII.txt 
+             0.07369691              0.01415112              0.02774920 
+Pancreatic.Stellate.txt 
+             0.10544206 </code></pre>
+<pre class="r"><code>total_genes = nrow(df)
+total_genes</code></pre>
+<pre><code>[1] 21395</code></pre>
+</div>
+<div id="load-data" class="section level2">
+<h2>Load data</h2>
+<p>We load the tau-star and enrichment results for 64 traits for 51 cell-type modules from healthy colon.</p>
+<pre class="r"><code>LDSC_proc_results = get(load(&quot;/Users/kushaldey/Documents/singlecellLDSC/output/healthy_celltype_enriched_blood_output_Mar4_2020_v2.1.rda&quot;))
+dim(LDSC_proc_results)</code></pre>
+<pre><code>[1] 27 78  4  6</code></pre>
+<pre class="r"><code>dimnames(LDSC_proc_results)[[1]]</code></pre>
+<pre><code> [1] &quot;ALL&quot;                         &quot;B.cell&quot;                     
+ [3] &quot;B.cell.2&quot;                    &quot;CD14..Monocyte&quot;             
+ [5] &quot;CD14..Monocyte.2&quot;            &quot;CD14..Monocyte.3&quot;           
+ [7] &quot;CD14..Monocyte.4&quot;            &quot;CD16..Monocyte&quot;             
+ [9] &quot;CD1C..cDC&quot;                   &quot;Cytotoxic.T.cell&quot;           
+[11] &quot;Cytotoxic.T.cell.2&quot;          &quot;Cytotoxic.T.cell.3&quot;         
+[13] &quot;Erythrocyte&quot;                 &quot;Erythrocyte.2&quot;              
+[15] &quot;Hematopoietic.stem.cell&quot;     &quot;Hematopoietic.stem.cell.2&quot;  
+[17] &quot;Megakaryocyte&quot;               &quot;Naive.T.cell&quot;               
+[19] &quot;Naive.T.cell.2&quot;              &quot;Naive.T.cell.3&quot;             
+[21] &quot;Natural.killer.cell&quot;         &quot;Plasma.cell&quot;                
+[23] &quot;Plasmacytoid.dendritic.cell&quot; &quot;Pre.B.cell&quot;                 
+[25] &quot;Pro.B.cell&quot;                  &quot;T.cell&quot;                     
+[27] &quot;T.helper.cell&quot;              </code></pre>
+<pre class="r"><code>dimnames(LDSC_proc_results)[[2]]</code></pre>
+<pre><code> [1] &quot;iPSYCH-PGC_ASD_Nov2017_KJ_KKD&quot;                  
+ [2] &quot;UKB_460K.blood_RBC_DISTRIB_WIDTH&quot;               
+ [3] &quot;UKB_460K.blood_RED_COUNT&quot;                       
+ [4] &quot;UKB_460K.blood_WHITE_COUNT&quot;                     
+ [5] &quot;UKB_460K.blood_PLATELET_COUNT&quot;                  
+ [6] &quot;UKB_460K.blood_EOSINOPHIL_COUNT&quot;                
+ [7] &quot;UKB_460K.disease_AID_SURE&quot;                      
+ [8] &quot;PASS_Ulcerative_Colitis&quot;                        
+ [9] &quot;PASS_Crohns_Disease&quot;                            
+[10] &quot;PASS_Rheumatoid_Arthritis&quot;                      
+[11] &quot;PASS_Celiac&quot;                                    
+[12] &quot;PASS_Lupus&quot;                                     
+[13] &quot;PASS_Type_1_Diabetes&quot;                           
+[14] &quot;PASS_IBD&quot;                                       
+[15] &quot;PASS_Primary_biliary_cirrhosis&quot;                 
+[16] &quot;UKB_460K.body_BMIz&quot;                             
+[17] &quot;UKB_460K.cov_EDU_YEARS&quot;                         
+[18] &quot;UKB_460K.lung_FVCzSMOKE&quot;                        
+[19] &quot;PASS_Intelligence_SavageJansen2018&quot;             
+[20] &quot;UKB_460K.mental_NEUROTICISM&quot;                    
+[21] &quot;UKB_460K.bp_DIASTOLICadjMEDz&quot;                   
+[22] &quot;UKB_460K.body_HEIGHTz&quot;                          
+[23] &quot;UKB_460K.other_MORNINGPERSON&quot;                   
+[24] &quot;UKB_460K.repro_MENARCHE_AGE&quot;                    
+[25] &quot;UKB_460K.biochemistry_TotalProtein&quot;             
+[26] &quot;UKB_460K.body_WHRadjBMIz&quot;                       
+[27] &quot;UKB_460K.lung_FEV1FVCzSMOKE&quot;                    
+[28] &quot;PASS_ReactionTime_Davies2018&quot;                   
+[29] &quot;UKB_460K.biochemistry_Creatinine&quot;               
+[30] &quot;PASS_BDSCZ_Ruderfer2018&quot;                        
+[31] &quot;UKB_460K.bmd_HEEL_TSCOREz&quot;                      
+[32] &quot;PASS_SleepDuration_Dashti2019&quot;                  
+[33] &quot;UKB_460K.biochemistry_IGF1&quot;                     
+[34] &quot;PASS_GeneralRiskTolerance_KarlssonLinner2019&quot;   
+[35] &quot;UKB_460K.biochemistry_AspartateAminotransferase&quot;
+[36] &quot;PASS_Insomnia_Jansen2019&quot;                       
+[37] &quot;PASS_Height1&quot;                                   
+[38] &quot;UKB_460K.repro_NumberChildrenEverBorn_Pooled&quot;   
+[39] &quot;PASS_AtrialFibrillation_Nielsen2018&quot;            
+[40] &quot;UKB_460K.biochemistry_Testosterone_Male&quot;        
+[41] &quot;PASS_BMI1&quot;                                      
+[42] &quot;UKB_460K.disease_HYPOTHYROIDISM_SELF_REP&quot;       
+[43] &quot;PASS_AgeFirstBirth&quot;                             
+[44] &quot;UKB_460K.body_BALDING1&quot;                         
+[45] &quot;UKB_460K.biochemistry_AlkalinePhosphatase&quot;      
+[46] &quot;UKB_460K.disease_ALLERGY_ECZEMA_DIAGNOSED&quot;      
+[47] &quot;PASS_DrinksPerWeek_Liu2019&quot;                     
+[48] &quot;UKB_460K.biochemistry_Phosphate&quot;                
+[49] &quot;PASS_MedicationUse_Wu2019&quot;                      
+[50] &quot;PASS_BreastCancer&quot;                              
+[51] &quot;PASS_IBD_deLange2017&quot;                           
+[52] &quot;UKB_460K.biochemistry_VitaminD&quot;                 
+[53] &quot;PASS_MDD_Wray2018&quot;                              
+[54] &quot;UKB_460K.biochemistry_Cholesterol&quot;              
+[55] &quot;PASS_ADHD_Demontis2018&quot;                         
+[56] &quot;UKB_460K.biochemistry_TotalBilirubin&quot;           
+[57] &quot;UKB_460K.repro_MENOPAUSE_AGE&quot;                   
+[58] &quot;UKB_460K.pigment_SUNBURN&quot;                       
+[59] &quot;PASS_NumberChildrenEverBorn&quot;                    
+[60] &quot;PASS_SCZvsBD_Ruderfer2018&quot;                      
+[61] &quot;PASS_Years_of_Education1&quot;                       
+[62] &quot;PASS_HDL&quot;                                       
+[63] &quot;PASS_LDL&quot;                                       
+[64] &quot;PASS_CigarettesPerDay_Liu2019&quot;                  
+[65] &quot;PASS_IschemicStroke_Malik2018&quot;                  
+[66] &quot;PASS_Anorexia&quot;                                  
+[67] &quot;PASS_Alzheimers_Jansen2019&quot;                     
+[68] &quot;PASS_Ever_Smoked&quot;                               
+[69] &quot;PASS_ProstateCancer&quot;                            
+[70] &quot;UKB_460K.cancer_PROSTATE&quot;                       
+[71] &quot;UKB_460K.cancer_BREAST&quot;                         
+[72] &quot;PASS_Type_2_Diabetes&quot;                           
+[73] &quot;PASS_Autism&quot;                                    
+[74] &quot;PASS_Coronary_Artery_Disease&quot;                   
+[75] &quot;UKB_460K.cov_SMOKING_STATUS&quot;                    
+[76] &quot;PASS_Years_of_Education2&quot;                       
+[77] &quot;PASS_DS&quot;                                        
+[78] &quot;PASS_Schizophrenia&quot;                             </code></pre>
+<pre class="r"><code>dimnames(LDSC_proc_results)[[3]]</code></pre>
+<pre><code>[1] &quot;100kb&quot;   &quot;5kb&quot;     &quot;ABC&quot;     &quot;Roadmap&quot;</code></pre>
+<pre class="r"><code>dimnames(LDSC_proc_results)[[4]]</code></pre>
+<pre><code>[1] &quot;taustar&quot;    &quot;se-taustar&quot; &quot;p-taustar&quot;  &quot;E&quot;          &quot;se.E&quot;      
+[6] &quot;p.E&quot;       </code></pre>
+<div id="kb" class="section level3">
+<h3>100kb</h3>
+<pre class="r"><code>EE = get_Etable(LDSC_proc_results, set_size = size_vec, tot_genes = total_genes,  &#39;100kb&#39;)
+corrplot(as.matrix(as.data.frame(EE)), is.corr = F, tl.cex = 0.7, tl.srt = 45)</code></pre>
+<p><img src="figure/Blood_healthy_celltype_enriched.Rmd/unnamed-chunk-11-1.png" width="1920" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>apply(EE, 2, mean)[order(apply(EE, 2, mean), decreasing = T)][1:10]</code></pre>
+<pre><code>                     PASS_Type_1_Diabetes 
+                                1.2714225 
+           PASS_Primary_biliary_cirrhosis 
+                                0.9903687 
+                               PASS_Lupus 
+                                0.9837817 
+         UKB_460K.blood_RBC_DISTRIB_WIDTH 
+                                0.9400376 
+               PASS_Alzheimers_Jansen2019 
+                                0.8832014 
+                                 PASS_LDL 
+                                0.8497512 
+            UKB_460K.blood_PLATELET_COUNT 
+                                0.8108158 
+UKB_460K.biochemistry_AlkalinePhosphatase 
+                                0.8107305 
+       UKB_460K.biochemistry_TotalProtein 
+                                0.8013010 
+                      PASS_Crohns_Disease 
+                                0.7768588 </code></pre>
+</div>
+<div id="abc" class="section level3">
+<h3>ABC</h3>
+<pre class="r"><code>EE = get_Etable(LDSC_proc_results, set_size = size_vec, tot_genes = total_genes,  &#39;ABC&#39;)
+corrplot(as.matrix(as.data.frame(EE)), is.corr = F, tl.cex = 0.7, tl.srt = 45)</code></pre>
+<p><img src="figure/Blood_healthy_celltype_enriched.Rmd/unnamed-chunk-13-1.png" width="1920" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>apply(EE, 2, mean)[order(apply(EE, 2, mean), decreasing = T)][1:10]</code></pre>
+<pre><code>          UKB_460K.blood_RED_COUNT      UKB_460K.blood_PLATELET_COUNT 
+                          2.680185                           2.355417 
+                        PASS_Lupus   UKB_460K.blood_RBC_DISTRIB_WIDTH 
+                          2.117749                           2.000682 
+         PASS_Rheumatoid_Arthritis UKB_460K.biochemistry_TotalProtein 
+                          1.919030                           1.828492 
+               PASS_Crohns_Disease                           PASS_IBD 
+                          1.751597                           1.680013 
+              PASS_IBD_deLange2017               PASS_Type_1_Diabetes 
+                          1.647889                           1.639772 </code></pre>
+</div>
+<div id="roadmap" class="section level3">
+<h3>Roadmap</h3>
+<pre class="r"><code>EE = get_Etable(LDSC_proc_results, set_size = size_vec, tot_genes = total_genes,  &#39;Roadmap&#39;)
+corrplot(as.matrix(as.data.frame(EE)), is.corr = F, tl.cex = 0.7, tl.srt = 45)</code></pre>
+<p><img src="figure/Blood_healthy_celltype_enriched.Rmd/unnamed-chunk-15-1.png" width="1920" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>apply(EE, 2, mean)[order(apply(EE, 2, mean), decreasing = T)][1:10]</code></pre>
+<pre><code>              PASS_IBD_deLange2017    UKB_460K.blood_EOSINOPHIL_COUNT 
+                         1.3568303                          1.3027325 
+               PASS_Crohns_Disease UKB_460K.biochemistry_TotalProtein 
+                         1.2848991                          1.1420655 
+  UKB_460K.blood_RBC_DISTRIB_WIDTH                           PASS_IBD 
+                         1.1262186                          1.0958639 
+              PASS_Type_1_Diabetes         UKB_460K.blood_WHITE_COUNT 
+                         1.0022360                          0.9173058 
+                       PASS_Celiac      UKB_460K.blood_PLATELET_COUNT 
+                         0.9166006                          0.8516222 </code></pre>
+</div>
+</div>
+<div id="tau-table" class="section level2">
+<h2>tau-table</h2>
+<div id="kb-1" class="section level3">
+<h3>100kb</h3>
+<pre class="r"><code>TT = get_tau_table(LDSC_proc_results,  &#39;100kb&#39;)
+corrplot(as.matrix(as.data.frame(TT)), is.corr = F, tl.cex = 0.7, tl.srt = 45)</code></pre>
+<p><img src="figure/Blood_healthy_celltype_enriched.Rmd/unnamed-chunk-17-1.png" width="1920" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>apply(TT, 2, mean)[order(apply(TT, 2, mean), decreasing = T)][1:10]</code></pre>
+<pre><code>                    PASS_Type_1_Diabetes 
+                              0.16071384 
+              PASS_Alzheimers_Jansen2019 
+                              0.14260224 
+          PASS_Primary_biliary_cirrhosis 
+                              0.11645716 
+UKB_460K.disease_HYPOTHYROIDISM_SELF_REP 
+                              0.09649315 
+               UKB_460K.disease_AID_SURE 
+                              0.08683361 
+           UKB_460K.blood_PLATELET_COUNT 
+                              0.08439031 
+        UKB_460K.blood_RBC_DISTRIB_WIDTH 
+                              0.08396885 
+                              PASS_Lupus 
+                              0.07900504 
+                     PASS_Crohns_Disease 
+                              0.07577263 
+               PASS_Rheumatoid_Arthritis 
+                              0.07123969 </code></pre>
+</div>
+<div id="abc-1" class="section level3">
+<h3>ABC</h3>
+<pre class="r"><code>TT = get_tau_table(LDSC_proc_results, &#39;ABC&#39;)
+corrplot(as.matrix(as.data.frame(TT)), is.corr = F, tl.cex = 0.7, tl.srt = 45)</code></pre>
+<p><img src="figure/Blood_healthy_celltype_enriched.Rmd/unnamed-chunk-19-1.png" width="1920" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>apply(TT, 2, mean)[order(apply(TT, 2, mean), decreasing = T)][1:10]</code></pre>
+<pre><code>          PASS_Type_1_Diabetes                    PASS_Celiac 
+                     2.8093957                      1.6360126 
+    PASS_Alzheimers_Jansen2019           PASS_IBD_deLange2017 
+                     1.1967911                      1.0800939 
+                      PASS_IBD PASS_Primary_biliary_cirrhosis 
+                     0.9164014                      0.8811979 
+ UKB_460K.blood_PLATELET_COUNT        PASS_Ulcerative_Colitis 
+                     0.8764778                      0.8489970 
+     UKB_460K.disease_AID_SURE      PASS_Rheumatoid_Arthritis 
+                     0.8234937                      0.7317118 </code></pre>
+</div>
+<div id="roadmap-1" class="section level3">
+<h3>Roadmap</h3>
+<pre class="r"><code>TT = get_tau_table(LDSC_proc_results,  &#39;Roadmap&#39;)
+corrplot(as.matrix(as.data.frame(TT)), is.corr = F, tl.cex = 0.7, tl.srt = 45)</code></pre>
+<p><img src="figure/Blood_healthy_celltype_enriched.Rmd/unnamed-chunk-21-1.png" width="1920" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>apply(TT, 2, mean)[order(apply(TT, 2, mean), decreasing = T)][1:10]</code></pre>
+<pre><code>                    PASS_Type_1_Diabetes 
+                               1.0583783 
+                             PASS_Celiac 
+                               0.9233965 
+                    PASS_IBD_deLange2017 
+                               0.6050083 
+         UKB_460K.blood_EOSINOPHIL_COUNT 
+                               0.6014466 
+              PASS_Alzheimers_Jansen2019 
+                               0.5895691 
+                     PASS_Crohns_Disease 
+                               0.5709747 
+UKB_460K.disease_HYPOTHYROIDISM_SELF_REP 
+                               0.5556798 
+                              PASS_Lupus 
+                               0.5496690 
+          PASS_Primary_biliary_cirrhosis 
+                               0.4807906 
+               UKB_460K.disease_AID_SURE 
+                               0.4755698 </code></pre>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.5.1 (2018-07-02)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS High Sierra 10.13.6
+
+Matrix products: default
+BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] qvalue_2.14.1 corrplot_0.84 ggplot2_3.1.1
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.1        compiler_3.5.1    pillar_1.3.1     
+ [4] git2r_0.23.0      plyr_1.8.4        workflowr_1.1.1  
+ [7] R.methodsS3_1.7.1 R.utils_2.7.0     tools_3.5.1      
+[10] digest_0.6.19     evaluate_0.12     tibble_2.1.1     
+[13] gtable_0.3.0      pkgconfig_2.0.2   rlang_0.4.2      
+[16] yaml_2.2.0        withr_2.1.2       stringr_1.4.0    
+[19] dplyr_0.8.0.1     knitr_1.20        rprojroot_1.3-2  
+[22] grid_3.5.1        tidyselect_0.2.5  glue_1.3.1       
+[25] R6_2.4.0          rmarkdown_1.10    reshape2_1.4.3   
+[28] purrr_0.3.2       magrittr_1.5      whisker_0.3-2    
+[31] splines_3.5.1     backports_1.1.4   scales_1.0.0     
+[34] htmltools_0.3.6   assertthat_0.2.1  colorspace_1.4-1 
+[37] stringi_1.4.3     lazyeval_0.2.2    munsell_0.5.0    
+[40] crayon_1.3.4      R.oo_1.22.0      </code></pre>
+</div>
+</div>
+<div id="session-information" class="section level2">
+<h2>Session information</h2>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.5.1 (2018-07-02)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS High Sierra 10.13.6
+
+Matrix products: default
+BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] qvalue_2.14.1 corrplot_0.84 ggplot2_3.1.1
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.1        compiler_3.5.1    pillar_1.3.1     
+ [4] git2r_0.23.0      plyr_1.8.4        workflowr_1.1.1  
+ [7] R.methodsS3_1.7.1 R.utils_2.7.0     tools_3.5.1      
+[10] digest_0.6.19     evaluate_0.12     tibble_2.1.1     
+[13] gtable_0.3.0      pkgconfig_2.0.2   rlang_0.4.2      
+[16] yaml_2.2.0        withr_2.1.2       stringr_1.4.0    
+[19] dplyr_0.8.0.1     knitr_1.20        rprojroot_1.3-2  
+[22] grid_3.5.1        tidyselect_0.2.5  glue_1.3.1       
+[25] R6_2.4.0          rmarkdown_1.10    reshape2_1.4.3   
+[28] purrr_0.3.2       magrittr_1.5      whisker_0.3-2    
+[31] splines_3.5.1     backports_1.1.4   scales_1.0.0     
+[34] htmltools_0.3.6   assertthat_0.2.1  colorspace_1.4-1 
+[37] stringi_1.4.3     lazyeval_0.2.2    munsell_0.5.0    
+[40] crayon_1.3.4      R.oo_1.22.0      </code></pre>
+</div>
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+<hr>
+<p>
+  This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a>
+  analysis was created with
+  <a href="https://github.com/jdblischak/workflowr">workflowr</a> 1.1.1
+</p>
+<hr>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

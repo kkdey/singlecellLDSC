@@ -1,0 +1,145 @@
+---
+title: "Kidney healthy celltype enriched"
+author: "Kushal K. Dey and Alkes Price"
+date: "3/2/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+get_Etable = function(ff, index= 'ABC'){
+  E_table = ff[,,index,3]
+  pE_table = ff[,,index,4]
+  qE_table = matrix(qvalue(as.vector(pE_table), pi0=1)$qvalues, nrow = nrow(E_table), ncol = ncol(E_table))
+  pE_table2 = matrix(qvalue(as.vector(pE_table), pi0=1)$pvalues, nrow = nrow(E_table), ncol = ncol(E_table))
+  E_table[which(qE_table > 0.01 & pE_table2 > 0.001)] = 1 
+  E_table[E_table < 1.1] = 1
+  Edif_table = E_table - mean(E_table)
+  return(Edif_table)
+}
+```
+
+```{r}
+get_tau_table = function(ff, index= 'ABC'){
+  tau_table = ff[,,index,1]
+  ptau_table = ff[,,index,2]
+  qtau_table = matrix(qvalue(as.vector(ptau_table))$qvalues, nrow = nrow(tau_table), ncol = ncol(tau_table))
+  ptau_table2 = matrix(qvalue(as.vector(ptau_table))$pvalues, nrow = nrow(tau_table), ncol = ncol(tau_table))
+  tau_table[which(qtau_table > 0.001)] = 0
+  return(tau_table)
+}
+```
+
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+library(ggplot2)
+library(corrplot)
+library(qvalue)
+```
+
+## Load data
+
+We load the tau-star and enrichment results for 64 traits for 51 cell-type modules from healthy colon.
+
+```{r}
+LDSC_proc_results = get(load("/Users/kushaldey/Documents/singlecellLDSC/output/healthy_celltype_enriched_kidney_output_Mar1_2020.rda"))
+dim(LDSC_proc_results)
+```
+
+```{r}
+dimnames(LDSC_proc_results)[[1]]
+```
+
+```{r}
+dimnames(LDSC_proc_results)[[2]]
+```
+
+
+```{r}
+dimnames(LDSC_proc_results)[[3]]
+```
+
+```{r}
+dimnames(LDSC_proc_results)[[4]]
+```
+
+
+### 100kb 
+
+```{r fig.height=12, fig.width=20}
+EE = get_Etable(LDSC_proc_results, '100kb')
+corrplot(EE, is.corr = F, tl.cex = 0.7, tl.srt = 45)
+```
+
+```{r}
+apply(EE, 2, mean)[order(apply(EE, 2, mean), decreasing = T)][1:10]
+```
+
+### ABC
+
+```{r fig.height=12, fig.width=20}
+EE = get_Etable(LDSC_proc_results, 'ABC')
+corrplot(EE, is.corr = F, tl.cex = 0.7, tl.srt = 45)
+```
+
+```{r}
+apply(EE, 2, mean)[order(apply(EE, 2, mean), decreasing = T)][1:10]
+```
+
+
+### Roadmap
+
+```{r fig.height=12, fig.width=20}
+EE = get_Etable(LDSC_proc_results, 'Roadmap')
+corrplot(EE, is.corr = F, tl.cex = 0.7, tl.srt = 45)
+```
+
+```{r}
+apply(EE, 2, mean)[order(apply(EE, 2, mean), decreasing = T)][1:10]
+```
+
+## tau-table
+
+### 100kb 
+
+```{r fig.height=12, fig.width=20}
+TT = get_tau_table(LDSC_proc_results, '100kb')
+corrplot(TT, is.corr = F, tl.cex = 0.7, tl.srt = 45)
+```
+
+```{r}
+apply(TT, 2, mean)[order(apply(TT, 2, mean), decreasing = T)][1:10]
+```
+
+
+### ABC
+
+```{r fig.height=12, fig.width=20}
+TT = get_tau_table(LDSC_proc_results, 'ABC')
+corrplot(TT, is.corr = F, tl.cex = 0.7, tl.srt = 45)
+```
+
+```{r}
+apply(TT, 2, mean)[order(apply(TT, 2, mean), decreasing = T)][1:10]
+```
+
+### Roadmap
+
+```{r fig.height=12, fig.width=20}
+TT = get_tau_table(LDSC_proc_results, 'Roadmap')
+corrplot(TT, is.corr = F, tl.cex = 0.7, tl.srt = 45)
+```
+
+```{r}
+apply(TT, 2, mean)[order(apply(TT, 2, mean), decreasing = T)][1:10]
+```
+
+```{r}
+sessionInfo()
+```
+
+
+
