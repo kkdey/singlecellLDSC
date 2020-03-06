@@ -53,7 +53,7 @@ library(qvalue)
 ## Size of annotations
 
 ```{r}
-ll = list.files("/Users/kushaldey/Documents/singlecellLDSC/data/Gene_Scores/Modules/healthy/celltype_enriched/pancreas/", full.names = T)
+ll = list.files("/Users/kushaldey/Documents/singlecellLDSC/data/Gene_Scores/Modules/healthy/celltype_enriched/lung/", full.names = T)
 ll
 ```
 
@@ -63,7 +63,7 @@ for(mm in 1:length(ll)){
   df = read.delim(ll[mm], header = F)
   size_vec = c(size_vec, mean(df[,2]))
 }
-names(size_vec) = list.files("/Users/kushaldey/Documents/singlecellLDSC/data/Gene_Scores/Modules/healthy/celltype_enriched/pancreas/")
+names(size_vec) = list.files("/Users/kushaldey/Documents/singlecellLDSC/data/Gene_Scores/Modules/healthy/celltype_enriched/lung/")
 size_vec
 total_genes = nrow(df)
 total_genes
